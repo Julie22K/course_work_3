@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Shop;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ShopController extends Controller
 {
     public function index()
     {
-        /*$units = Unit::all();
-        //dd($units);
-        return view('unit.index', compact('units'));*/
-        return view('shop.index');
+        $shops = Shop::all();
+        return view('shop.index', compact('shops'));
     }
-    public function show()
+    public function show($id)
     {
-        //return view('book.add');
+        $shop = Shop::find($id);
+        return view('shop.show', compact('shop'));
     }
     public function create()
     {
@@ -23,24 +24,40 @@ class ShopController extends Controller
     }
     public function store(Request $request)
     {
-        /*$name=$request->input('name');
-        DB::table('units')->insert(['im'=>$name]);
-        return redirect()->route('units.index');*/
+        $name=$request->input('name');
+        $phone=$request->input('phone');
+        $address=$request->input('address');
+        $email=$request->input('email');
+        DB::table('books')->insert([
+            'name'=>$name,
+            'phone'=>$phone,
+            'address'=>$address,
+            'email'=>$email
+        ]);
+        return redirect()->route('books.index');
     }
     public function destroy($id)
     {
-        /*DB::table('units')->where('id', $id)->delete();
-        return redirect()->route('units.index');*/
+        DB::table('books')->where('id', $id)->delete();
+        return redirect()->route('books.index');
     }
     public function edit($id)
     {
-        /*$unit= DB::table('units')->where('id', $id)->first();
-        return view('unit.update', compact('unit'));*/
+        $book= DB::table('books')->where('id', $id)->first();
+        return view('book.update', compact('book'));
     }
     public function update(Request $request,$id)
     {
-        /*$name=$request->input('name');
-        DB::table('units')->where('id',$id)->update(['im'=>$name]);
-        return redirect()->route('units.index');*/
+        $name=$request->input('name');
+        $phone=$request->input('phone');
+        $address=$request->input('address');
+        $email=$request->input('email');
+        DB::table('books')->where('id',$id)->update([
+            'name'=>$name,
+            'phone'=>$phone,
+            'address'=>$address,
+            'email'=>$email
+        ]);
+        return redirect()->route('books.index');
     }
 }

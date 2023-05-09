@@ -2,45 +2,51 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        /*$units = Unit::all();
-        //dd($units);
-        return view('unit.index', compact('units'));*/
-        return view('category.index');
+        $categories = Category::all();
+        return view('category.index', compact('categories'));
     }
-    public function show()
+    /*public function show($id)
     {
-        //return view('book.add');
-    }
+        $category = Category::find($id);
+        return view('category.show', compact('category'));
+    }*/
     public function create()
     {
-        return view('book.add');
+        return view('category.add');
     }
     public function store(Request $request)
     {
-        /*$name=$request->input('name');
-        DB::table('units')->insert(['im'=>$name]);
-        return redirect()->route('units.index');*/
+        $name=$request->input('name');
+
+        DB::table('categories')->insert([
+            'name'=>$name
+        ]);
+        return redirect()->route('categories.index');
     }
     public function destroy($id)
     {
-        /*DB::table('units')->where('id', $id)->delete();
-        return redirect()->route('units.index');*/
+        DB::table('edit')->where('id', $id)->delete();
+        return redirect()->route('categories.index');
     }
     public function edit($id)
     {
-        /*$unit= DB::table('units')->where('id', $id)->first();
-        return view('unit.update', compact('unit'));*/
+        $category= DB::table('categories')->where('id', $id)->first();
+        return view('category.edit', compact('category'));
     }
     public function update(Request $request,$id)
     {
-        /*$name=$request->input('name');
-        DB::table('units')->where('id',$id)->update(['im'=>$name]);
-        return redirect()->route('units.index');*/
+        $name=$request->input('name');
+        DB::table('categories')->where('id',$id)->update([
+            'name'=>$name
+        ]);
+        return redirect()->route('categories.index');
     }
 }

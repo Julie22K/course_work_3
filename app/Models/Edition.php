@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Edition extends Model
 {
     use HasFactory;
+    public function book()
+    {
+        return $this->hasMany(Book::class ,'edition_id','id');
+    }
 }

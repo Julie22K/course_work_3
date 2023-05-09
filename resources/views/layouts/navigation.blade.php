@@ -15,6 +15,15 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Головна') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('sales.index')" :active="request()->routeIs('sales.index')">
+                        {{ __('Продажі') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.index')">
+                        {{ __('Клієнти') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('goods.index')" :active="request()->routeIs('goods.index')">
+                        {{ __('Товари') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('books.index')" :active="request()->routeIs('book.index')">
                         {{ __('Книги') }}
                     </x-nav-link>
@@ -29,6 +38,9 @@
                     </x-nav-link>
                     <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">
                         {{ __('Категорії') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('genres.index')" :active="request()->routeIs('genres.index')">
+                        {{ __('Жанри') }}
                     </x-nav-link>
                 </div>
             </div>

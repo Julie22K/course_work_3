@@ -39,13 +39,21 @@ class RegisteredUserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'user_type'=>'cashier',
             'password' => Hash::make($request->password),
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        /*if(Auth::user()->user_type=="cashier"){
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }
+        else if(Auth::user()->user_type=="admin"){
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }
+        else return redirect('/');
+*/
+        return redirect()->intended(RouteServiceProvider::HOME);
     }
 }

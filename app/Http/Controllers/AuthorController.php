@@ -2,45 +2,53 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AuthorController extends Controller
 {
+    //todo all controllers
+    //todo all views(add,update,show)
+    //todo user types
     public function index()
     {
-        /*$units = Unit::all();
-        //dd($units);
-        return view('unit.index', compact('units'));*/
-        return view('author.index');
+        $authors = Author::all();
+        return view('author.index', compact('authors'));
     }
-    public function show()
+    public function show($id)
     {
-        //return view('book.add');
+        $author = Author::find($id);
+        return view('author.show', compact('author'));
     }
     public function create()
     {
-        return view('book.add');
+        return view('author.add');
     }
     public function store(Request $request)
     {
-        /*$name=$request->input('name');
-        DB::table('units')->insert(['im'=>$name]);
-        return redirect()->route('units.index');*/
+        $name=$request->input('full_name');
+        DB::table('authors')->insert([
+            'full_name'=>$name
+        ]);
+        return redirect()->route('authors.index');
     }
     public function destroy($id)
     {
-        /*DB::table('units')->where('id', $id)->delete();
-        return redirect()->route('units.index');*/
+        DB::table('authors')->where('id', $id)->delete();
+        return redirect()->route('authors.index');
     }
     public function edit($id)
     {
-        /*$unit= DB::table('units')->where('id', $id)->first();
-        return view('unit.update', compact('unit'));*/
+        $author= DB::table('authors')->where('id', $id)->first();
+        return view('author.update', compact('author'));
     }
     public function update(Request $request,$id)
     {
-        /*$name=$request->input('name');
-        DB::table('units')->where('id',$id)->update(['im'=>$name]);
-        return redirect()->route('units.index');*/
+        $name=$request->input('full_name');
+        DB::table('authors')->where('id',$id)->update([
+            'full_name'=>$name
+        ]);
+        return redirect()->route('authors.index');
     }
 }

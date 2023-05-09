@@ -4,8 +4,12 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\AutorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\EditionController;
+use App\Http\Controllers\GenreController;
+use App\Http\Controllers\GoodController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SaleController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 
@@ -69,6 +73,39 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::post('/shops/update/{id}', [ShopController::class, 'update'])->name('shops.update');
     Route::get('/shops/{id}', [ShopController::class, 'destroy'])->name('shops.destroy');
 
+    Route::get('/goods',  [GoodController::class, 'index'])->name('goods.index');
+    Route::get('/goods/show/{id}', [GoodController::class, 'show'])->name('goods.show');
+    Route::get('/goods/create', [GoodController::class, 'create'])->name('goods.create');
+    Route::post('/goods/store', [GoodController::class, 'store'])->name('goods.store');
+    Route::get('/goods/edit/{id}', [GoodController::class, 'edit'])->name('goods.edit');
+    Route::post('/goods/update/{id}', [GoodController::class, 'update'])->name('goods.update');
+    Route::get('/goods/{id}', [GoodController::class, 'destroy'])->name('goods.destroy');
+
+
+    Route::get('/genres',  [GenreController::class, 'index'])->name('genres.index');
+    Route::get('/genres/show/{id}', [GenreController::class, 'show'])->name('genres.show');
+    Route::get('/genres/create', [GenreController::class, 'create'])->name('genres.create');
+    Route::post('/genres/store', [GenreController::class, 'store'])->name('genres.store');
+    Route::get('/genres/edit/{id}', [GenreController::class, 'edit'])->name('genres.edit');
+    Route::post('/genres/update/{id}', [GenreController::class, 'update'])->name('genres.update');
+    Route::get('/genres/{id}', [GenreController::class, 'destroy'])->name('genres.destroy');
+
+
+    Route::get('/clients',  [ClientController::class, 'index'])->name('clients.index');
+    Route::get('/clients/show/{id}', [ClientController::class, 'show'])->name('clients.show');
+    Route::get('/clients/create', [ClientController::class, 'create'])->name('clients.create');
+    Route::post('/clients/store', [ClientController::class, 'store'])->name('clients.store');
+    Route::get('/clients/edit/{id}', [ClientController::class, 'edit'])->name('clients.edit');
+    Route::post('/clients/update/{id}', [ClientController::class, 'update'])->name('clients.update');
+    Route::get('/clients/{id}', [ClientController::class, 'destroy'])->name('clients.destroy');
+
+    Route::get('/sales',  [SaleController::class, 'index'])->name('sales.index');
+    Route::get('/sales/show/{id}', [SaleController::class, 'show'])->name('sales.show');
+    Route::get('/sales/create', [SaleController::class, 'create'])->name('sales.create');
+    Route::post('/sales/store', [SaleController::class, 'store'])->name('sales.store');
+    Route::get('/sales/edit/{id}', [SaleController::class, 'edit'])->name('sales.edit');
+    Route::post('/sales/update/{id}', [SaleController::class, 'update'])->name('sales.update');
+    Route::get('/sales/{id}', [SaleController::class, 'destroy'])->name('sales.destroy');
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Genre extends Model
 {
     use HasFactory;
-    public function book()
+    public function book_genre()//one-to-many
     {
-        return $this->hasMany(Book::class ,'genre_id','id');
+        return $this->hasMany(BookGenre::class ,'genre_id','id');
     }
 }

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Магазини') }}
+            {{ __('Список магазинів') }}
         </h2>
     </x-slot>
 
@@ -16,10 +16,8 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Назва</th>
                             <th>Адреса</th>
                             <th>Телефон</th>
-                            <th>Електрона адреса</th>
                             <th>Дії</th>
                         </tr>
                         </thead>
@@ -30,16 +28,10 @@
                                     {{$shop->id}}
                                 </td>
                                 <td>
-                                    {{$shop->name}}
-                                </td>
-                                <td>
                                     {{$shop->address}}
                                 </td>
                                 <td>
                                     {{$shop->phone}}
-                                </td>
-                                <td>
-                                    {{$shop->email}}
                                 </td>
                                 <td class="flex flex-row">
                                     <ion-icon onclick="location.href='{{URL::route('shops.edit',$shop->id)}}'"

@@ -5,9 +5,12 @@ use App\Http\Controllers\AutorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ConsumerController;
 use App\Http\Controllers\EditionController;
+use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\GoodController;
+use App\Http\Controllers\InventoryBookController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\ShopController;
@@ -42,21 +45,6 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::post('/books/update/{id}', [BookController::class, 'update'])->name('books.update');
     Route::get('/books/{id}', [BookController::class, 'destroy'])->name('books.destroy');
 
-    Route::get('/editions',  [EditionController::class, 'index'])->name('editions.index');
-    Route::get('/editions/show/{id}', [EditionController::class, 'show'])->name('editions.show');
-    Route::get('/editions/create', [EditionController::class, 'create'])->name('editions.create');
-    Route::post('/editions/store', [EditionController::class, 'store'])->name('editions.store');
-    Route::get('/editions/edit/{id}', [EditionController::class, 'edit'])->name('editions.edit');
-    Route::post('/editions/update/{id}', [EditionController::class, 'update'])->name('editions.update');
-    Route::get('/editions/{id}', [EditionController::class, 'destroy'])->name('editions.destroy');
-
-    Route::get('/categories',  [CategoryController::class, 'index'])->name('categories.index');
-    Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
-    Route::post('/categories/store', [CategoryController::class, 'store'])->name('categories.store');
-    Route::get('/categories/edit/{id}', [CategoryController::class, 'edit'])->name('categories.edit');
-    Route::post('/categories/update/{id}', [CategoryController::class, 'update'])->name('categories.update');
-    Route::get('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
-
     Route::get('/authors',  [AuthorController::class, 'index'])->name('authors.index');
     //Route::get('/authors/show/{id}', [AuthorController::class, 'show'])->name('authors.show');
     Route::get('/authors/create', [AuthorController::class, 'create'])->name('authors.create');
@@ -64,23 +52,6 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::get('/authors/edit/{id}', [AuthorController::class, 'edit'])->name('authors.edit');
     Route::post('/authors/update/{id}', [AuthorController::class, 'update'])->name('authors.update');
     Route::get('/authors/{id}', [AuthorController::class, 'destroy'])->name('authors.destroy');
-
-    Route::get('/shops',  [ShopController::class, 'index'])->name('shops.index');
-    Route::get('/shops/show/{id}', [ShopController::class, 'show'])->name('shops.show');
-    Route::get('/shops/create', [ShopController::class, 'create'])->name('shops.create');
-    Route::post('/shops/store', [ShopController::class, 'store'])->name('shops.store');
-    Route::get('/shops/edit/{id}', [ShopController::class, 'edit'])->name('shops.edit');
-    Route::post('/shops/update/{id}', [ShopController::class, 'update'])->name('shops.update');
-    Route::get('/shops/{id}', [ShopController::class, 'destroy'])->name('shops.destroy');
-
-    Route::get('/goods',  [GoodController::class, 'index'])->name('goods.index');
-    Route::get('/goods/show/{id}', [GoodController::class, 'show'])->name('goods.show');
-    Route::get('/goods/create', [GoodController::class, 'create'])->name('goods.create');
-    Route::post('/goods/store', [GoodController::class, 'store'])->name('goods.store');
-    Route::get('/goods/edit/{id}', [GoodController::class, 'edit'])->name('goods.edit');
-    Route::post('/goods/update/{id}', [GoodController::class, 'update'])->name('goods.update');
-    Route::get('/goods/{id}', [GoodController::class, 'destroy'])->name('goods.destroy');
-
 
     Route::get('/genres',  [GenreController::class, 'index'])->name('genres.index');
     Route::get('/genres/show/{id}', [GenreController::class, 'show'])->name('genres.show');
@@ -90,14 +61,30 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::post('/genres/update/{id}', [GenreController::class, 'update'])->name('genres.update');
     Route::get('/genres/{id}', [GenreController::class, 'destroy'])->name('genres.destroy');
 
+    Route::get('/employer',  [EmployerController::class, 'index'])->name('employee.index');
+    //Route::get('/employer/show/{id}', [EmployerController::class, 'show'])->name('employee.show');
+    Route::get('/employer/create', [EmployerController::class, 'create'])->name('employee.create');
+    Route::post('/employer/store', [EmployerController::class, 'store'])->name('employee.store');
+    Route::get('/employer/edit/{id}', [EmployerController::class, 'edit'])->name('employee.edit');
+    Route::post('/employer/update/{id}', [EmployerController::class, 'update'])->name('employee.update');
+    Route::get('/employer/{id}', [EmployerController::class, 'destroy'])->name('employee.destroy');
 
-    Route::get('/clients',  [ClientController::class, 'index'])->name('clients.index');
-    Route::get('/clients/show/{id}', [ClientController::class, 'show'])->name('clients.show');
-    Route::get('/clients/create', [ClientController::class, 'create'])->name('clients.create');
-    Route::post('/clients/store', [ClientController::class, 'store'])->name('clients.store');
-    Route::get('/clients/edit/{id}', [ClientController::class, 'edit'])->name('clients.edit');
-    Route::post('/clients/update/{id}', [ClientController::class, 'update'])->name('clients.update');
-    Route::get('/clients/{id}', [ClientController::class, 'destroy'])->name('clients.destroy');
+    Route::get('/consumer',  [ConsumerController::class, 'index'])->name('consumers.index');
+    //Route::get('/consumer/show/{id}', [ConsumerController::class, 'show'])->name('consumers.show');
+    Route::get('/consumer/create', [ConsumerController::class, 'create'])->name('consumers.create');
+    Route::post('/consumer/store', [ConsumerController::class, 'store'])->name('consumers.store');
+    Route::get('/consumer/edit/{id}', [ConsumerController::class, 'edit'])->name('consumers.edit');
+    Route::post('/consumer/update/{id}', [ConsumerController::class, 'update'])->name('consumers.update');
+    Route::get('/consumer/{id}', [ConsumerController::class, 'destroy'])->name('consumers.destroy');
+
+    Route::get('/shops',  [ShopController::class, 'index'])->name('shops.index');
+    Route::get('/shops/show/{id}', [ShopController::class, 'show'])->name('shops.show');
+    Route::get('/shops/create', [ShopController::class, 'create'])->name('shops.create');
+    Route::post('/shops/store', [ShopController::class, 'store'])->name('shops.store');
+    Route::get('/shops/edit/{id}', [ShopController::class, 'edit'])->name('shops.edit');
+    Route::post('/shops/update/{id}', [ShopController::class, 'update'])->name('shops.update');
+    Route::get('/shops/{id}', [ShopController::class, 'destroy'])->name('shops.destroy');
+
 
     Route::get('/sales',  [SaleController::class, 'index'])->name('sales.index');
     Route::get('/sales/show/{id}', [SaleController::class, 'show'])->name('sales.show');
@@ -106,6 +93,16 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::get('/sales/edit/{id}', [SaleController::class, 'edit'])->name('sales.edit');
     Route::post('/sales/update/{id}', [SaleController::class, 'update'])->name('sales.update');
     Route::get('/sales/{id}', [SaleController::class, 'destroy'])->name('sales.destroy');
+
+    Route::get('/inventory_book',  [InventoryBookController::class, 'index'])->name('inventory_books.index');
+    //Route::get('/shops/show/{id}', [ShopController::class, 'show'])->name('shops.show');
+    Route::get('/inventory_book/create', [InventoryBookController::class, 'create'])->name('inventory_books.create');
+    Route::post('/inventory_book/store', [InventoryBookController::class, 'store'])->name('inventory_books.store');
+    Route::get('/inventory_book/edit/{id}', [InventoryBookController::class, 'edit'])->name('inventory_books.edit');
+    Route::post('/inventory_book/update/{id}', [InventoryBookController::class, 'update'])->name('inventory_books.update');
+    Route::get('/inventory_book/{id}', [InventoryBookController::class, 'destroy'])->name('inventory_books.destroy');
+
+
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

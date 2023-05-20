@@ -14,11 +14,21 @@
                     </button>
                     <form action="{{route('genres.update',$genre->id)}}" method="post">
                         @csrf
-                        <div class="m-2 w-full">
-                            <label for="name" class="form-label">Назва жанру:</label>
+                        <div class="flex flex-row justify-between">
+                        <div class="m-2 w-1/2">
+                            <label for="full_name" class="form-label">Назва жанру:</label>
+                            <input type="text" name="full_name" class="border border-gray-400 px-4 py-2 rounded w-full focus:outline-none focus:border-teal-400" id="full_name" value="{{$genre->name}}">
+                        </div>
+                        <div class="m-2 w-1/2">
+                            <label for="genres" class="form-label">Назва жанру:</label>
                             <input type="text" name="name" class="border border-gray-400 px-4 py-2 rounded w-full focus:outline-none focus:border-teal-400" id="name" value="{{$genre->name}}">
                         </div>
-                        <button type="submit" class="bg-green-400 rounded-md m-2 p-2 w-1/6 text-white hover:bg-green-300 float-right">Змінити</button>
+                        </div>
+                        <div class="m-2 w-full">
+                            <label for="genres" class="form-label">Назва жанру:</label>
+                            <input type="text" name="name" class="border border-gray-400 px-4 py-2 rounded w-full focus:outline-none focus:border-teal-400" id="name" value="{{$genre->name}}">
+                        </div>
+                        <button type="submit" class="bg-green-400 rounded-md m-2 p-2 w-1/6 text-white hover:bg-green-300 float-right">Додати</button>
                     </form>
                 </div>
             </div>

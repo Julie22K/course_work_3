@@ -9,24 +9,17 @@ class Book extends Model
 {
     use HasFactory;
     protected $guarded='books';
-    public function category()
+    public function book_author()//one-to-many
     {
-        return $this->belongsTo(Category::class);
+        return $this->hasMany(BookAuthor::class ,'book_id','id');
     }
-    public function author()
+    public function book_genre()//one-to-many
     {
-        return $this->belongsTo(Author::class);
+        return $this->hasMany(BookGenre::class ,'book_id','id');
     }
-    public function edition()
+    public function inventory_book()//one-to-many
     {
-        return $this->belongsTo(Edition::class);
+        return $this->hasMany(InventoryBook::class ,'book_id','id');
     }
-    public function genre()
-    {
-        return $this->belongsTo(Genre::class);
-    }
-    public function good()
-    {
-        return $this->hasMany(Good::class ,'good_id','id');
-    }
+
 }

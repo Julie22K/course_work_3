@@ -16,48 +16,41 @@ class ShopController extends Controller
     public function show($id)
     {
         $shop = Shop::find($id);
+
         return view('shop.show', compact('shop'));
     }
     public function create()
     {
-        return view('book.add');
+        return view('shop.add');
     }
     public function store(Request $request)
     {
-        $name=$request->input('name');
-        $phone=$request->input('phone');
         $address=$request->input('address');
-        $email=$request->input('email');
-        DB::table('books')->insert([
-            'name'=>$name,
-            'phone'=>$phone,
+        $phone=$request->input('phone');
+        DB::table('shops')->insert([
             'address'=>$address,
-            'email'=>$email
+            'phone'=>$phone
         ]);
-        return redirect()->route('books.index');
+        return redirect()->route('shops.index');
     }
     public function destroy($id)
     {
-        DB::table('books')->where('id', $id)->delete();
-        return redirect()->route('books.index');
+        DB::table('shops')->where('id', $id)->delete();
+        return redirect()->route('shops.index');
     }
     public function edit($id)
     {
-        $book= DB::table('books')->where('id', $id)->first();
-        return view('book.update', compact('book'));
+        $shop= DB::table('shops')->where('id', $id)->first();
+        return view('shop.update',compact('shop'));
     }
     public function update(Request $request,$id)
     {
-        $name=$request->input('name');
-        $phone=$request->input('phone');
         $address=$request->input('address');
-        $email=$request->input('email');
-        DB::table('books')->where('id',$id)->update([
-            'name'=>$name,
-            'phone'=>$phone,
+        $phone=$request->input('phone');
+        DB::table('shops')->where('id',$id)->update([
             'address'=>$address,
-            'email'=>$email
+            'phone'=>$phone
         ]);
-        return redirect()->route('books.index');
+        return redirect()->route('shops.index');
     }
 }

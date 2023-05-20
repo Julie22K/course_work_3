@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class AuthorController extends Controller
 {
-    //todo all controllers
-    //todo all views(add,update,show)
-    //todo user types
     public function index()
     {
         $authors = Author::all();
@@ -19,6 +16,7 @@ class AuthorController extends Controller
     public function show($id)
     {
         $author = Author::find($id);
+
         return view('author.show', compact('author'));
     }
     public function create()
@@ -27,27 +25,30 @@ class AuthorController extends Controller
     }
     public function store(Request $request)
     {
-        $name=$request->input('full_name');
-        DB::table('authors')->insert([
-            'full_name'=>$name
-        ]);
+        $full_name=$request->input('full_name');
+        Author::create(array('full_name'=>$full_name));
+        /*DB::table('authors')->insert([
+            'full_name'=>$full_name
+        ]);*/
         return redirect()->route('authors.index');
     }
     public function destroy($id)
     {
+        //todo delete books?!
+        DB::table('book_authors')->where('author_id', $id)->delete();
         DB::table('authors')->where('id', $id)->delete();
         return redirect()->route('authors.index');
     }
     public function edit($id)
     {
         $author= DB::table('authors')->where('id', $id)->first();
-        return view('author.update', compact('author'));
+        return view('author.edit',compact('author'));
     }
     public function update(Request $request,$id)
     {
-        $name=$request->input('full_name');
+        $full_name=$request->input('full_name');
         DB::table('authors')->where('id',$id)->update([
-            'full_name'=>$name
+            'full_name'=>$full_name
         ]);
         return redirect()->route('authors.index');
     }

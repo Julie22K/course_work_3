@@ -13,6 +13,8 @@
         <!-- Ion-Icons -->
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        {{--select2--}}
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -39,10 +41,42 @@
             </main>
         </div>
         <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('.select2').select2(
+                );
+            });
+        </script>
         <script>
             $(document).ready(function () {
                 $('#myTable').DataTable({
                     responsive: true,
+                    "language": {
+                        "sProcessing":    "Дані обробляються...",
+                        "sLengthMenu":    "Показати _MENU_ записів",
+                        "sZeroRecords":   "Нічого не знайдено",
+                        "sEmptyTable":    "У цій таблиці немає даних",
+                        "sInfo":          "Показано з _START_ по _END_ з _TOTAL_ записів",
+                        "sInfoEmpty":     "Показано з 0 по 0 з 0 записів",
+                        "sInfoFiltered":  "(фільтруючи загальну кількість записів: _MAX_)",
+                        "sInfoPostFix":   "",
+                        "sSearch":        "Пошук:",
+                        "sUrl":           "",
+                        "sInfoThousands":  ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst":    "Перша",
+                            "sLast":    "Остання",
+                            "sNext":    "Далі",
+                            "sPrevious": "Назад"
+                        }}
+                });
+                $('#booksTable').DataTable({
+                    responsive: true,
+                    paging: false,
+                    scrollY: 200,
                     "language": {
                         "sProcessing":    "Дані обробляються...",
                         "sLengthMenu":    "Показати _MENU_ записів",

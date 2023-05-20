@@ -15,11 +15,11 @@
                     <table id="myTable">
                         <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Назва товару</th>
-                            <th>Ціна товару</th>
+                            <th>Адреса магазину</th>
+                            <th>Продавець</th>
                             <th>Покупець</th>
-                            <th>Дата</th>
+                            <th>Продані книги</th>
+                            <th>Виручка</th>
                             <th>Дії</th>
                         </tr>
                         </thead>
@@ -27,19 +27,33 @@
                         @foreach($sales as $sale)
                             <tr>
                                 <td>
-                                    {{$sale->id}}
+                                    {{$sale->shop->address}}
                                 </td>
                                 <td>
-                                    {{$sale->good->book->name}}
+                                    {{$sale->employer->full_name}}
                                 </td>
                                 <td>
-                                    {{$sale->good->sale_price}}
+                                    {{$sale->consumer->full_name}}
                                 </td>
                                 <td>
-                                    {{$sale->client->full_name}}
+                                    <ul>
+                                        @foreach($sale->items as $item)
+
+                                                <li>{{$item->inventory_book->book->title}} - {{$item->inventory_book->order_price}} грн</li>
+                                        @endforeach
+                                    </ul>
                                 </td>
                                 <td>
-                                    {{$sale->date}}
+                                    <?php
+                                        $sum=0;
+                                        foreach ($sale->items as $item)
+                                        {
+                                            $sum+=$item->price-$item->inventory_book->order_price;//todo with виручка
+                                            //переробити таблицю, або з групуванням по продажі
+                                        }
+                                        echo $sum . "грн";
+
+                                        ?>
                                 </td>
                                 <td class="flex flex-row">
                                     <ion-icon onclick="location.href='{{URL::route('sales.edit',$sale->id)}}'"

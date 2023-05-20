@@ -8,13 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Sale extends Model
 {
     use HasFactory;
-    public function good()
+    public function shop()//many-to-one
     {
-        return $this->belongsTo(Good::class);
+        return $this->belongsTo(Shop::class);
     }
-    public function client()
+    public function employer()//many-to-one
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Employer::class);
     }
-
+    public function consumer()//many-to-one
+    {
+        return $this->belongsTo(Consumer::class);
+    }
+    public function items()//one-to-many
+    {
+        return $this->hasMany(SoldBook::class ,'sale_id','id');
+    }
 }

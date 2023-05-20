@@ -4,86 +4,80 @@ namespace App\Http\Controllers;
 
 use App\Models\Author;
 use App\Models\Book;
-use App\Models\Category;
-use App\Models\Edition;
+use App\Models\Employer;
+use App\Models\Genre;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-//todo views(add)
-//todo views(update)
-//todo views(show)
-//todo users
-
 class BookController extends Controller
 {
+
+    //todo додавання автора та жанру з книгою, якщо такого жанру чи книги немаэ додати
     public function index()
     {
         $books = Book::all();
+        /*foreach ($books as $book)
+        {
+            dump($book->book_author[0]->author->full_name);
+        }*/
         return view('book.index', compact('books'));
     }
     public function show($id)
     {
         $book = Book::find($id);
-
         return view('book.show', compact('book'));
     }
     public function create()
     {
-        $categories=Category::all();
-        $editions=Edition::all();
+        $genres=Genre::all();
         $authors=Author::all();
-        return view('book.add',compact('categories','editions','authors'));
+        return view('book.add',compact('genres','authors'));
     }
     public function store(Request $request)
     {
-        $name=$request->input('name');
-        $phone=$request->input('phone');
-        $address=$request->input('address');
-        $email=$request->input('email');
-        $category_id=$request->input('category_id');
-        $author_id=$request->input('author_id');
-        $edition_id=$request->input('edition_id');
-        DB::table('books')->insert([
-            'name'=>$name,
-            'phone'=>$phone,
-            'address'=>$address,
-            'email'=>$email,
-            'category_id'=>$category_id,
-            'author_id'=>$author_id,
-            'edition_id'=>$edition_id
+        $title=$request->input('title');
+        $genre_id=$request->input('genre');
+        $author_id=$request->input('author');
+        $book_id=DB::table('books')->insertGetId([
+            'title'=>$title
+        ]);
+        DB::table('book_genres')->insert([
+            'book_id'=>$book_id,
+            'genre_id'=>$genre_id
+        ]);
+        DB::table('book_authors')->insert([
+            'book_id'=>$book_id,
+            'author_id'=>$author_id
         ]);
         return redirect()->route('books.index');
     }
     public function destroy($id)
     {
+        DB::table('book_authors')->where('book_id', $id)->delete();
+        DB::table('book_genres')->where('book_id', $id)->delete();
         DB::table('books')->where('id', $id)->delete();
         return redirect()->route('books.index');
     }
     public function edit($id)
     {
         $book= DB::table('books')->where('id', $id)->first();
-        $categories=Category::all();
-        $editions=Edition::all();
+        $genres=Genre::all();
         $authors=Author::all();
-        return view('book.update',compact('book','categories','editions','authors'));
+        return view('book.edit',compact('book','genres','authors'));
     }
     public function update(Request $request,$id)
     {
-        $name=$request->input('name');
-        $phone=$request->input('phone');
-        $address=$request->input('address');
-        $email=$request->input('email');
-        $category_id=$request->input('category_id');
-        $author_id=$request->input('author_id');
-        $edition_id=$request->input('edition_id');
+        $title=$request->input('title');
+        $genre_id=$request->input('genre');
+        $author_id=$request->input('author');
         DB::table('books')->where('id',$id)->update([
-            'name'=>$name,
-            'phone'=>$phone,
-            'address'=>$address,
-            'email'=>$email,
-            'category_id'=>$category_id,
-            'author_id'=>$author_id,
-            'edition_id'=>$edition_id
+            'title'=>$title
+        ]);
+        DB::table('book_genres')->where('book_id',$id)->update([
+            'genre_id'=>$genre_id
+        ]);
+        DB::table('book_authors')->where('book_id',$id)->update([
+            'author_id'=>$author_id
         ]);
         return redirect()->route('books.index');
     }

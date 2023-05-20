@@ -17,6 +17,7 @@
                         <tr>
                             <th>#</th>
                             <th>Ім'я</th>
+                            <th>Книги</th>
                             <th>Дії</th>
                         </tr>
                         </thead>
@@ -28,6 +29,15 @@
                                 </td>
                                 <td>
                                     {{$author->full_name}}
+                                </td>
+                                <td>
+                                    <ul>
+                                        @foreach($author->book_author as $b)
+                                            <li>{{$b->book->title}}</li>
+                                        @endforeach
+
+                                    </ul>
+
                                 </td>
                                 <td class="flex flex-row">
                                     <ion-icon onclick="location.href='{{URL::route('authors.edit',$author->id)}}'"
